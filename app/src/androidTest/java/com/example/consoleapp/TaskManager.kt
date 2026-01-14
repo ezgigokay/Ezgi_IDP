@@ -5,6 +5,15 @@ data class Task(
     val title: String,
 )
 
+enum class SelectOptions(val option: String) {
+    ADD_TASK("1"),
+    COMPLETE_TASK("2"),
+    LIST_ALL_COMPLETED_TASKS("3"),
+    SEARCH_TASK ("4"),
+    LIST_ALL_TASKS("5"),
+    EXIT ("6")
+}
+
 fun printWelcome() {
     println("\n========================")
     println("   KOTLIN TASK MANAGER  ")
@@ -30,7 +39,7 @@ fun main() {
 
         when (readLine()) {
 
-            "1" -> {
+            SelectOptions.ADD_TASK.option -> {
                 print("Enter title: ")
                 val title = readLine().toString()
                 taskList.add(Task(nextIdForTaskList++, title))
@@ -41,7 +50,7 @@ fun main() {
                 }
             }
 
-            "2" -> {
+            SelectOptions.COMPLETE_TASK.option -> {
                 print("Choose task by ID to complete: ")
                 var idInput = readLine()?.toIntOrNull()
                 var task = taskList.find { it.taskId == idInput }
@@ -52,7 +61,7 @@ fun main() {
                 } else println("Task is not exist")
             }
 
-            "3" -> {
+            SelectOptions.LIST_ALL_COMPLETED_TASKS.option -> {
                 println("Listing all finished tasks")
                 if (finishedTaskList.isEmpty()) {
                     println("\nNo completed tasks.")
@@ -64,7 +73,7 @@ fun main() {
 
             }
 
-            "4" -> {
+            SelectOptions.SEARCH_TASK.option -> {
                 print("Enter title: ")
                 val searchedInput = readLine()
                 var result = (totalTasks).find { it.title == searchedInput.toString() }
@@ -79,18 +88,18 @@ fun main() {
                 }
             }
 
-            "5" -> {
+            SelectOptions.LIST_ALL_TASKS.option -> {
                 println("Listing all the tasks")
                 for (task in totalTasks) {
                     if (task in taskList) {
-                        println("${task.taskId} [] ${task.title}")
+                        println("${task.taskId} [ ] ${task.title}")
                     } else if (task in finishedTaskList) {
                         println("${task.taskId} [✓] ${task.title}")
                     }
                 }
             }
 
-            "6" -> {
+            SelectOptions.EXIT.option -> {
                 println("Exiting..")
                 isRunning = false
             }
