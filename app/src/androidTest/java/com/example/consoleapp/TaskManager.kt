@@ -38,9 +38,9 @@ var nextIdForTaskList = 1
 
 fun main() {
 
-//Starting the loop for execution
+    //Starting the loop for execution
     while (isRunning) {
-
+        //Only show header
         if (taskList.isEmpty()) {
             printWelcome()
         }
@@ -52,19 +52,10 @@ fun main() {
             //Adding task
             SelectOptions.ADD_TASK.option -> {
                 addTask()
-                printTasks()
             }
             //Completing selected task by id
             SelectOptions.COMPLETE_TASK.option -> {
-                print("Choose task by ID to complete: ")
-                val idInput = readLine()?.toIntOrNull()
-                val task = taskList.find { it.Id == idInput }
-                if (task != null) {
-                    task.taskStatus = TaskStatus.DONE
-                    println("${task.Id}.[✓] ${task.title} marked as complete.")
-                } else {
-                    println("Error: Task with ID '$idInput' not found.")
-                }
+                completingSelectedTask()
             }
             //Listing all completed tasks
             SelectOptions.LIST_ALL_COMPLETED_TASKS.option -> {
@@ -92,19 +83,33 @@ fun main() {
         }
     }
 }
-
+//Handles user input for new tasks and adds them to the global list
 private fun addTask() {
     print("Enter title: ")
     val title = readLine() ?: ""
     taskList.add(Task(getNewId(), title))
     println("Task added")
+    printTasks()
+}
+//Mark selected task as done
+private fun completingSelectedTask() {
+    print("Choose task by ID to complete: ")
+    val idInput = readLine()?.toIntOrNull()
+    val task = taskList.find { it.Id == idInput }
+    if (task != null) {
+        task.taskStatus = TaskStatus.DONE
+        println("${task.Id}.[✓] ${task.title} marked as complete.")
+    } else {
+        println("Error: Task with ID '$idInput' not found.")
+    }
 }
 
+//Generates a new unique ID and increments the counter for the next task
 private fun getNewId(): Int {
     return nextIdForTaskList++
 }
 
-
+//Prints a list of tasks with [ ] or [✓] markers
 private fun printTasks(specificTask: List<Task>? = taskList) {
     if (specificTask != null) {
         for (task in specificTask) {
@@ -113,7 +118,7 @@ private fun printTasks(specificTask: List<Task>? = taskList) {
         }
     }
 }
-
+//Filters the taskList based on a substring (case-insensitive)
 private fun searchTask() {
     print("Enter title: ")
     val searchedInput = readLine().toString()
@@ -123,7 +128,7 @@ private fun searchTask() {
         } else (println("There is no task with searched title.."))
     }
 }
-
+//Specifically filters for completed tasks and prints them
 private fun filterAndPrintCompletedTasks() {
     taskList.filter { it.taskStatus == TaskStatus.DONE }
         .let { completedTasks ->
@@ -136,7 +141,7 @@ private fun filterAndPrintCompletedTasks() {
             }
         }
 }
-
+//Safely removes a task by its ID
 private fun deleteTask() {
     print("Pls enter task Id to delete: ")
     val enteredId = readln().toIntOrNull()
