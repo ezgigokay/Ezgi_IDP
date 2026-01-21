@@ -1,9 +1,10 @@
 package com.example.consoleapp
+import java.io.File
 
 //Defining task data class
 data class Task(
     val Id: Int,
-    val title: String,
+    var title: String,
     var taskStatus: TaskStatus = TaskStatus.TODO
 )
 
@@ -21,7 +22,8 @@ enum class SelectOptions(val option: String) {
     LIST_ALL_TASKS("4"),
     SEARCH_TASK("5"),
     DELETE_TASK("6"),
-    EXIT("7")
+    SAVE_TASKS("7"),
+    EXIT("8")
 }
 
 fun printWelcome() {
@@ -45,7 +47,7 @@ fun main() {
             printWelcome()
         }
 
-        println("\nOptions: (1) Add  (2) Complete  (3) List All Completed Tasks  (4) List All the Tasks  (5) Search Task By Name  (6) Delete  (7) Exit")
+        println("\nOptions: (1) Add  (2) Complete  (3) List All Completed Tasks  (4) List All the Tasks  (5) Search Task By Name  (6) Delete  (7) Save All Tasks  (8) Exit")
         print("Choose an option: ")
 
         when (readLine()) {
@@ -74,6 +76,10 @@ fun main() {
             //Deleting task by Id
             SelectOptions.DELETE_TASK.option -> {
                 deleteTask()
+            }
+            //Save all tasks
+            SelectOptions.SAVE_TASKS.option -> {
+                saveFile()
             }
             //Exiting
             SelectOptions.EXIT.option -> {
@@ -152,4 +158,15 @@ private fun deleteTask() {
     } else {
         println("Task with ID $enteredId not found.")
     }
+}
+
+private fun saveFile() {
+    val file = File("task_data.txt")
+    val content = StringBuilder()
+
+    for (task in taskList) {
+        content.appendLine("${task.Id}. ${task.title} | ${task.taskStatus}")
+    }
+    file.writeText(content.toString())
+    println("${taskList.size} number of tasks saved to ${file.name}")
 }
