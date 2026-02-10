@@ -6,9 +6,9 @@ import com.example.consoleapp.TaskStatus
 class TaskManager() {
 
     private val tasks = mutableListOf<Task>()
+    private var next = 1
 
     fun defaultIdProvider(): Int {
-        var next = 1
         return  next++
     }
 
