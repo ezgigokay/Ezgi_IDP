@@ -144,7 +144,7 @@ open class SmartLibrary {
         val userName = readln()
         print("Pls enter book title: ")
         val bookTitle = readln()
-        val member = members.find { it.memberName == userName }
+        val member = members.find { it.memberName.equals(userName, ignoreCase = true) }
         val book = catalog.values.find { it.title.contains(bookTitle, ignoreCase = true) }
         if (member != null && book != null && book.isAvailable) {
             member.borrowedBook.add(book)

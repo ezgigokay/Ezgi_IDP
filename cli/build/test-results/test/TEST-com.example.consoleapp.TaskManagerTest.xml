@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.example.consoleapp.TaskManagerTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2026-02-09T15:59:24.034Z" hostname="ezgis-MacBook-Pro-2.local" time="0.014">
+<testsuite name="com.example.consoleapp.TaskManagerTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2026-02-10T09:46:28.400Z" hostname="ezgis-MacBook-Pro-2.local" time="0.015">
   <properties/>
-  <testcase name="completeTaskById should mark a task as done()" classname="com.example.consoleapp.TaskManagerTest" time="0.007"/>
+  <testcase name="completeTaskById should mark a task as done()" classname="com.example.consoleapp.TaskManagerTest" time="0.008"/>
   <testcase name="listing all task should return all the tasks()" classname="com.example.consoleapp.TaskManagerTest" time="0.0"/>
   <testcase name="addNewTask should add a task to the list()" classname="com.example.consoleapp.TaskManagerTest" time="0.0"/>
   <testcase name="completed tasks displays only()" classname="com.example.consoleapp.TaskManagerTest" time="0.0"/>
-  <testcase name="deleteTaskById should delete task from the list()" classname="com.example.consoleapp.TaskManagerTest" time="0.001"/>
+  <testcase name="deleteTaskById should delete task from the list()" classname="com.example.consoleapp.TaskManagerTest" time="0.0"/>
   <testcase name="search task should return searched task()" classname="com.example.consoleapp.TaskManagerTest" time="0.003"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
