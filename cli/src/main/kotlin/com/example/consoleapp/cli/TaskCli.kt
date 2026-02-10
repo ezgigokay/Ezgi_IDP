@@ -4,6 +4,9 @@ import com.example.consoleapp.SelectOptions
 import com.example.consoleapp.core.TaskManager
 import com.example.consoleapp.TaskStatus
 import java.io.File
+import java.sql.Time
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 private val taskManager = TaskManager()
 private var isRunning = true
@@ -119,9 +122,10 @@ private fun deleteTask() {
 }
 
 private fun saveFile() {
-    val file = File("task_data.txt")
+    val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+    val currentDateTime = LocalDateTime.now().format(formatter)
+    val file = File("task_data_{$currentDateTime}.txt")
     val content = StringBuilder()
-
     for (task in taskManager.listofAllTasks()) {
         content.appendLine("${task.Id}. ${task.title} | ${task.taskStatus}")
     }
